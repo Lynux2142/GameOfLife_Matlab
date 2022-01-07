@@ -3,6 +3,7 @@ classdef Life < handle
         board
         width
         height
+        birthFromVoid
     end
     
     methods
@@ -10,6 +11,7 @@ classdef Life < handle
             obj.board = zeros(w, h);
             obj.width = w;
             obj.height = h;
+            obj.birthFromVoid = 0;
         end
         
         function obj = fillRand(obj)
@@ -17,12 +19,8 @@ classdef Life < handle
             obj.board = randi(2, obj.width, obj.height) - 1;
         end
 
-        function obj = nextCycle(obj, n)
-            arguments
-                obj
-                n int32 {mustBeNonnegative} = 0;
-            end
-            for i = 0:n
+        function obj = nextCycle(obj)
+            for i = 1:obj.birthFromVoid
                 obj.board(randi(obj.height), randi(obj.width)) = 1;
             end
             prevBoard = obj.board;
