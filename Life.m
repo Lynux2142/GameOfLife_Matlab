@@ -25,6 +25,9 @@ classdef Life < handle
             newBoard = obj.board;
             w = obj.size(1);
             h = obj.size(2);
+            if (isempty(gcp('nocreate')))
+                parpool('threads');
+            end
             parfor y = 1:h
                 for x = 1:w
                     neighbors = getNeighbors(prevBoard, x, y, w, h);
